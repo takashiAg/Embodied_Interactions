@@ -5,26 +5,25 @@ from numpy import frombuffer, array
 import time
 
 CHUNK = 64
-RATE = 44100
+RATE = 4410
 p = pyaudio.PyAudio()
 
 input_value = [0 for x in range(1024)]
 
 
 class ThreadJob(threading.Thread):
-    def __init__(self, v=""):
+    def __init__(self):
         threading.Thread.__init__(self)
-        self.line = v
         self.kill_flag = False
 
     def run(self):
-        old = []
         while not (self.kill_flag):
-            if (self.line and self.line != old):
-                plt.plot(self.line[:])
-                plt.pause(0.001)
-                print(self.line)
-                old = self.line
+            plt.plot(data)
+            plt.pause(0.001)
+            print(data)
+
+
+data = []
 
 
 def main():
@@ -35,7 +34,7 @@ def main():
                         output=False)  # inputとoutputを同時にTrueにする
         while stream.is_active():
             input = stream.read(CHUNK)
-            t.line=[x for x in frombuffer(input, dtype="int16")]
+            data.extend([x for x in frombuffer(input, dtype="int16")])
 
             # output = stream.write(input)
 

@@ -32,12 +32,12 @@ def main():
     t.start()
     try:
         stream = p.open(format=pyaudio.paInt16, channels=1, rate=RATE, frames_per_buffer=CHUNK, input=True,
-                        output=True)  # inputとoutputを同時にTrueにする
+                        output=False)  # inputとoutputを同時にTrueにする
         while stream.is_active():
             input = stream.read(CHUNK)
             t.line=[x for x in frombuffer(input, dtype="int16")]
 
-            output = stream.write(input)
+            # output = stream.write(input)
 
         stream.stop_stream()
         stream.close()

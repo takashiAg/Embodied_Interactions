@@ -18,7 +18,7 @@ class ThreadJob(threading.Thread):
 
     def run(self):
         while not (self.kill_flag):
-            plt.plot(data)
+            plt.plot(data[-1000:])
             plt.pause(0.001)
             print(data)
 

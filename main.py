@@ -25,7 +25,8 @@ def prinf_process(d):
         #         dd=[int(x) for x in np.frombuffer(data, dtype="int16")]
         #         d["data"].extend(dd)
         # d["data"].append(np.frombuffer(data, dtype="int16"))
-        d["data"] = np.concatenate([d["data"], np.frombuffer(data, dtype="int16")], axis=0)[-44100:]
+        d["data"] = np.concatenate([d["data"], np.frombuffer(data, dtype="int16")], axis=0)[-10000:]
+
 
     stream.close()
     p.terminate()

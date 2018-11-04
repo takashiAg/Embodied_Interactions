@@ -72,10 +72,10 @@ while True:
     x_axis_fft=list(range(len(fft_data)))
 
     fig1_a_1.set_data(x, data)
-    fig1_a.set_ylim(-1, 1)
+    fig1_a.set_ylim(-1.3, 1.3)
 
-    fig1_b_1.set_data(x_axis_fft,fft_data)
-    fig1_b.set_ylim(fft_data.min(), fft_data.max())
+    fig1_b_1.set_data(x_axis_fft,np.abs(fft_data))
+    fig1_b.set_ylim(0, 500)
     fig1_b.set_xlim(min(x_axis_fft), max(x_axis_fft))
 
     plt.pause(0.1)

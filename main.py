@@ -1,4 +1,4 @@
-def prinf_process(d):
+def sample_process(d):
     import pyaudio
     import sys
     import time
@@ -37,10 +37,9 @@ def prinf_process(d):
 from multiprocessing import Manager, Process
 
 d = Manager().dict()
-p = Process(target=prinf_process, args=(d,))
+p = Process(target=sample_process, args=(d,))
 p.start()
-print(d)
-len(d)
+
 import numpy as np
 import matplotlib.pyplot as plt
 import time
@@ -49,7 +48,6 @@ import time
 
 # 図1を定義
 fig1 = plt.figure()
-
 fig1.suptitle("trigonometric function", fontsize=16)
 
 # 図の中にサブプロットを追加する
@@ -57,13 +55,14 @@ fig1_a = fig1.add_subplot(2, 1, 1)
 fig1_b = fig1.add_subplot(2, 1, 2)
 fig1.tight_layout()
 fig1.subplots_adjust(top=0.85)
-# 図１(a)にプロットする
 
 time.sleep(1)
 
+# 図１(a)にプロットを作成する
 data = d["data"][:] / 32768.0
 fig1_a_1, = fig1_a.plot(data)
 fig1_b_1, = fig1_b.plot(data)
+
 while True:
     data = d["data"][:] / 32768.0
     x = range(len(data))

@@ -42,3 +42,5 @@ python main.py
 
 # reffer
 - [Pythonで音を録音して可視化する](https://qiita.com/mix_dvd/items/adce7636e2ab33b25208)
+- [python serial](https://qiita.com/crawd4274/items/9e11d2ba08fa1b55b753)
+

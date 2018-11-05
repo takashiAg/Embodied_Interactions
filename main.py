@@ -8,7 +8,7 @@ Team Member :
 """
 
 # グラフ表示したいときはこれをTrue
-graph = Falseg
+graph = False
 # 処理時間を計測したいときはこれをTrue
 process_time_mesurement = True
 # カラーを表示するとき

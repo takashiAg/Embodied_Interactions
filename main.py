@@ -1,3 +1,20 @@
+"""
+Auther : ryosuke Ando
+Team Member :
+    yuyu
+    taichi
+    nabe
+
+"""
+
+# グラフ表示したいときはこれをTrue
+graph = Falseg
+# 処理時間を計測したいときはこれをTrue
+process_time_mesurement = True
+# カラーを表示するとき
+color_display = False
+
+
 def sample_process(d):
     import pyaudio
     import sys
@@ -95,24 +112,48 @@ data = d["data"][:] / 32768.0
 fig1_a_1, = fig1_a.plot(data)
 fig1_b_1, = fig1_b.plot(data)
 
+start = time.time()
 while True:
-    # とってきたデータを-1から1に正規化してdataに代入。
-    # data に最新のデータが入ってる
+    start = time.time()
+    '''
+    とってきたデータを-1から1に正規化してdataに代入。
+    data に最新のデータが入ってる
+    '''
     data = d["data"][:] / 32768.0
     x = range(len(data))
 
-    # fftする
+    '''
+    fftします。
+    fft_data[0]   の方が低い音
+    fft_data[100] の方が高い音
+    '''
     fft_data = np.fft.fft(data).real[:int(len(x) / 2)][:100]
     x_axis_fft = list(range(len(fft_data)))
 
-    # colorはcolorに入ってる
-    print(color)
+    if color_display:
+        '''
+        colorはcolorに入ってる
+        Red Green Blueの値が入っているので、以下の様にアクセスして!!
+        color["r"]
+        color["g"]
+        color["b"]
+        '''
+        print(color)
 
-    fig1_a_1.set_data(x, data)
-    fig1_a.set_ylim(-1.3, 1.3)
+    # ↓↓↓↓↓↓↓↓この辺にコード書いて！↓↓↓↓↓↓↓↓↓↓
 
-    fig1_b_1.set_data(x_axis_fft, np.abs(fft_data))
-    fig1_b.set_ylim(0, 500)
-    fig1_b.set_xlim(min(x_axis_fft), max(x_axis_fft))
+    # ↑↑↑↑↑↑↑↑この辺にコード書いて！↑↑↑↑↑↑↑↑↑↑
 
-    plt.pause(0.1)
+    if graph:
+        fig1_a_1.set_data(x, data)
+        fig1_a.set_ylim(-1.3, 1.3)
+
+        fig1_b_1.set_data(x_axis_fft, np.abs(fft_data))
+        fig1_b.set_ylim(0, 500)
+        fig1_b.set_xlim(min(x_axis_fft), max(x_axis_fft))
+
+        plt.pause(0.1)
+
+    # 処理にかかった時間
+    if process_time_mesurement:
+        print((time.time() - start))

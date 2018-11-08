@@ -80,8 +80,20 @@ def get_color(color):
 
 
 def send(a, b, c):
-    pass
+    note = osc_message_builder.OscMessageBuilder(address="/note")
+    pgm = osc_message_builder.OscMessageBuilder(address="/pgm")
+    vel = osc_message_builder.OscMessageBuilder(address="/velocity")
 
+    note.add_arg(int(b))
+    pgm.add_arg(int(c))
+    vel.add_arg(int(a)*10)
+    note = note.build()
+    pgm = pgm.build()
+    vel = vel.build()
+    client.send(note)
+    client.send(pgm)
+    client.send(vel)
+    return
 
 from multiprocessing import Manager, Process
 
@@ -97,6 +109,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 import colorsys
+import argparse
+from pythonosc import osc_message_builder
+from pythonosc import udp_client
+
+port_num = 12000
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--ip", default="127.0.0.1", help="The ip of th OSC Server")
+parser.add_argument("--port", type=int, default=port_num, help="The port the OSC server is listening on")
+args = parser.parse_args()
+client = udp_client.UDPClient(args.ip, args.port)
 
 # %matplotlib inline
 
@@ -173,7 +196,9 @@ while True:
         old_pgm = pgm
     if max_freq_value > 10:
         send(max_freq_value, max_freq_index, pgm)
-        time.sleep(0.1)
+        sttime=time.time()
+        while time.time()-sttime<0.1:
+            pass
 
     print("\r", max_freq_value, '\t', max_freq_index, '\t', pgm, '\t', h, '\t', h_filtered, '\t', h_filtered2, end="")
     # ↑↑↑↑↑↑↑↑この辺にコード書いて！↑↑↑↑↑↑↑↑↑↑

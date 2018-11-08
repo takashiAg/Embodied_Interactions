@@ -79,6 +79,10 @@ def get_color(color):
     ser.close()
 
 
+def send(a, b, c):
+    pass
+
+
 from multiprocessing import Manager, Process
 
 d = Manager().dict()
@@ -167,6 +171,9 @@ while True:
         pgm = old_pgm
     else:
         old_pgm = pgm
+    if max_freq_value > 10:
+        send(max_freq_value, max_freq_index, pgm)
+        time.sleep(0.1)
 
     print("\r", max_freq_value, '\t', max_freq_index, '\t', pgm, '\t', h, '\t', h_filtered, '\t', h_filtered2, end="")
     # ↑↑↑↑↑↑↑↑この辺にコード書いて！↑↑↑↑↑↑↑↑↑↑

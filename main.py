@@ -195,7 +195,7 @@ while True:
     else:
         old_pgm = pgm
     if max_freq_value > 10:
-        send(max_freq_value, max_freq_index, pgm)
+        send(max_freq_value, max_freq_index/4+30, pgm)
         sttime=time.time()
         while time.time()-sttime<0.1:
             pass
